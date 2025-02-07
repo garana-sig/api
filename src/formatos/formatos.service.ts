@@ -35,5 +35,7 @@ export class FormatosService {
   async findAll(): Promise <IFormatos[]>{
     return await this.formatoModel.find().exec()
   }
+
+  
   
 }

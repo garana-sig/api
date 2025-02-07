@@ -3,6 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FormatosModule } from './formatos/formatos.module';
+import { UsersModule } from './users/users.module';
+import { AccionesMejoraModule } from './acciones-mejora/acciones-mejora.module';
+import { PlantillasModule } from './plantillas/plantillas.module';
 import 'dotenv/config';
 import * as dotenv from 'dotenv';
 
@@ -15,6 +18,9 @@ const URL = process.env.MONGODB ?? '';
   imports: [
     MongooseModule.forRoot (URL),
     FormatosModule,
+    UsersModule,
+    AccionesMejoraModule,
+    PlantillasModule,
     
   ],
   controllers: [AppController],
