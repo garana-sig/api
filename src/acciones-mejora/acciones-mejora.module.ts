@@ -4,13 +4,14 @@ import { AccionesMejoraService } from './acciones-mejora.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AccionesMejoraSchema } from './AccionesMejora.Model';
 import { PlantillasService } from 'src/plantillas/plantillas.service';
-import { Plantilla, PlantillaSchema } from 'src/plantillas/plantilla.schema';
+import { PlantillaSchema } from 'src/plantillas/plantilla.schema';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports:[
     MongooseModule.forFeature([{name:'AccionesMejora', schema: AccionesMejoraSchema}]),
-    MongooseModule.forFeature([{name:'Plantillas', schema: PlantillaSchema}])
-
+    MongooseModule.forFeature([{name:'Plantillas', schema: PlantillaSchema}]),
+    ConfigModule.forRoot(),
   ],
   controllers: [AccionesMejoraController],
   providers: [AccionesMejoraService, PlantillasService]
