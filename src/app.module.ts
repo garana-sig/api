@@ -11,6 +11,7 @@ import * as dotenv from 'dotenv';
 import { ConfigModule } from '@nestjs/config';
 import { MandoIntegralModule } from './mando-integral/mando-integral.module';
 import { FormulasMandoIModule } from './formulas_mando-i/formulas_mando-i.module';
+import { AuthModule } from './auth/auth.module';
 
 
 dotenv.config();
@@ -29,6 +30,7 @@ const URL = process.env.MONGODB ?? '';
     PlantillasModule,
     MandoIntegralModule,
     FormulasMandoIModule,
+    AuthModule,
     
   ],
   controllers: [AppController],

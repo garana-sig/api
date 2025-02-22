@@ -1,7 +1,7 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsString, MinLength, Matches } from 'class-validator';
 
 export enum UserRole {
-    ADMIN = 'admin',
+    ADMIN ='admin',
     USER = 'user',
     CONTA = 'conta',
     SST = 'sst',
