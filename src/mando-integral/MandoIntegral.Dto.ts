@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsOptional, ValidateNested, IsMongoId } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, ValidateNested, IsMongoId, IsNumber, IsObject } from 'class-validator';
 import { IFormula_MandoI } from 'src/formulas_mando-i/Formulas_MandoI.model';
 
 
@@ -51,5 +51,14 @@ export class MandoIntegralDto {
     aQuienSeDivulga: string;
 
     @IsString()
+    @IsOptional()
     medida: string
+
+    @IsOptional()
+    @IsObject()
+    valoresVariables?: Record<string, number>; 
+
+    @IsNumber()
+    @IsOptional()
+    resultado?: Number
 }

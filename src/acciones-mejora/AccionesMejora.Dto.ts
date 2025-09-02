@@ -7,8 +7,8 @@ export enum Origen {
     QRS = 'qrs',
     SATISFACCION = 'satisfaccion',
     AUTOCONTROL = 'autocontrol',
-    ANALISIS_RIESGOS = 'analisis_riesgos',
-    PROD_NO_CONFORME = 'prod_no_conforme'
+    ANALISIS_RIESGOS = 'analisis riesgos',
+    PROD_NO_CONFORME = 'producto no conforme'
 }
 
 export enum Accion {
@@ -22,7 +22,7 @@ export class AccionesMejoraDto {
     @IsNotEmpty()
     consecutivo: string;
 
-    @IsDate()
+   @IsDate()
     @Type(() => Date)
     fecha: Date;
 

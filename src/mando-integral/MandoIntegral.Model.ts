@@ -7,14 +7,16 @@ export const MandoIntegralSchema = new Schema({
     perspectiva: { type: String, required: true },
     tipoIndicador: { type: String, required: true },
     nombreIndicador: { type: String, required: true },
-    formulaId: { type: Schema.Types.ObjectId, ref: 'Formula', required: true },
+    formula: { type: Schema.Types.ObjectId, ref: 'FormulasMando', required: true },
     ProcesoFuenteInformacion: { type: String, required: true },
     responsable: { type: String, required: true }, // Luego será ObjectId ref: 'Usuario'
     frecuenciaMedicion: { type: String, required: true },
     definicionInterpretacion: { type: String, required: true },
     meta: { type: String, required: true },
     aQuienSeDivulga: { type: String, required: true },
-    medida: { type: String, required: true },
+    medida: { type: String},
+    valoresVariables: { type: Map, of: Number }, // Ahora es un objeto de clave-valor con valores numéricos
+    resultado: { type: Number }
 });
 
 export interface IMandoIntegral extends Document {
@@ -30,5 +32,7 @@ export interface IMandoIntegral extends Document {
     definicionInterpretacion: string;
     meta: string;
     aQuienSeDivulga: string;
-    medida: string
+    medida: string;
+    valoresVariables?: Record<string, number>; // Ahora es un objeto bien definido
+    resultado?: number;
 }

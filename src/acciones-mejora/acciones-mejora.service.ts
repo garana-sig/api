@@ -94,6 +94,8 @@ async enviarCorreo(accionMejora: AccionesMejoraDto) {
     return savedAccion;
   }
 
+ 
+
   async downloadFormato(): Promise<{ buffer: Buffer; filename: string }> {
     const plantilla = await this.plantillaService.obtenerPlantillaActiva();
     const workbook = new ExcelJS.Workbook();
@@ -134,10 +136,10 @@ async enviarCorreo(accionMejora: AccionesMejoraDto) {
         case 'autocontrol':
           origenauto = 'X';
           break;
-        case 'analisis_riesgos':
+        case 'analisis riesgos':
           origenana = 'X';
           break;
-        case 'prod_no_conforme':
+        case 'producto no conforme':
           origenprod = 'X';
           break;
         default:
@@ -203,5 +205,10 @@ async enviarCorreo(accionMejora: AccionesMejoraDto) {
       buffer: Buffer.from(newBuffer),
       filename,
     };
+  }
+
+  async find(): Promise <IAccionesMejora []>{
+    const acciones_encontradas = this.accionesMejoraModel.find().exec()
+    return await acciones_encontradas
   }
 }

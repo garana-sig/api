@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { IMandoIntegral } from './MandoIntegral.Model';
 import { FormulasMandoIService } from 'src/formulas_mando-i/formulas_mando-i.service';
 import { MandoIntegralDto } from './MandoIntegral.Dto';
+import * as math from 'mathjs';
 
 @Injectable()
 export class MandoIntegralService {
@@ -52,12 +53,13 @@ export class MandoIntegralService {
     }
 
     async update(id: string, mandoIntegralDto: MandoIntegralDto): Promise<IMandoIntegral | null> {
+        
         // Verificar que existe el indicador
-        const existingIndicador = await this.mandoIntegralModel.findById(id).exec();
+        const existingIndicador = await this.mandoIntegralModel.findById(id).populate('formula').exec();
         if (!existingIndicador) {
             throw new NotFoundException(`Indicador con ID ${id} no encontrado`);
         }
-
+    
         // Verificar que la nueva fórmula existe si se está actualizando
         if (mandoIntegralDto.formula) {
             const formulaExists = await this.formulaService.findOne(mandoIntegralDto.formula.toString());
@@ -65,9 +67,35 @@ export class MandoIntegralService {
                 throw new BadRequestException(`La fórmula especificada no existe`);
             }
         }
+    
+        // Si hay valores de variables, calcular el resultado de la fórmula
+        let resultado: number | undefined = undefined;
+        if (mandoIntegralDto.valoresVariables && existingIndicador.formula) {
+            const expresion = existingIndicador.formula.expresionMatematica; 
+            const valores = mandoIntegralDto.valoresVariables; 
+    
+            // Verificar que todos los identificadores de la fórmula están en valoresVariables
+            const variablesFaltantes = existingIndicador.formula.variables
+                .map(v => v.identificador)
+                .filter(id => valores[id] === undefined);
+    
+            if (variablesFaltantes.length > 0) {
+                throw new BadRequestException(`Faltan valores para las variables: ${variablesFaltantes.join(', ')}`);
+            }
+    
+            
+        try {
+            resultado = math.evaluate(expresion, valores); // Calcular la fórmula
+            resultado = resultado !== undefined ? Math.round(resultado * 100) : undefined; // Convertir a porcentaje sin decimales
+        } catch (error) {
+            throw new BadRequestException(`Error al calcular la fórmula: ${error.message}`);
+        }
+    }
 
+    
+        // Actualizar el indicador con los nuevos datos y el resultado calculado
         return await this.mandoIntegralModel
-            .findByIdAndUpdate(id, mandoIntegralDto, { new: true })
+            .findByIdAndUpdate(id, { ...mandoIntegralDto, resultado }, { new: true })
             .populate('formula')
             .exec();
     }

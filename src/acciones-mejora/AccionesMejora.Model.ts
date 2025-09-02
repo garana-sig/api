@@ -2,8 +2,8 @@ import mongoose, { Schema } from "mongoose";
 import { Accion, Origen } from "./AccionesMejora.Dto";
 
 export const AccionesMejoraSchema = new Schema({
-    consecutivo: { type: String, required: true },
-    fecha: { type: Date, required: true },
+    consecutivo: { type: String, },
+    fecha: { type: Date },
     proceso: { type: String, required: true },
     origen: { type: String, enum: Object.values(Origen), required: true },
     descripcion_hallazgo: { type: String, required: true },

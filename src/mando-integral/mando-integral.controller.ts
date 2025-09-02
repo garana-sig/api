@@ -7,10 +7,12 @@ import {
     Body, 
     Param, 
     Query,
-    HttpStatus
+    HttpStatus,
+    Patch
 } from '@nestjs/common';
 import { MandoIntegralService } from './mando-integral.service';
 import { MandoIntegralDto } from './MandoIntegral.Dto';
+import { IMandoIntegral } from './MandoIntegral.Model';
 
 @Controller('mando-integral')
 export class MandoIntegralController {
@@ -44,8 +46,11 @@ export class MandoIntegralController {
         return await this.mandoIntegralService.findOne(id);
     }
 
-    @Put(':id')
-    async update(@Param('id') id: string, @Body() mandoIntegralDto: MandoIntegralDto) {
+    @Patch(':id')
+    async updateMandoIntegral(
+        @Param('id') id: string,
+        @Body() mandoIntegralDto: MandoIntegralDto
+    ) {
         return await this.mandoIntegralService.update(id, mandoIntegralDto);
     }
 

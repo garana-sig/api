@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { FormulasMandoIService } from './formulas_mando-i.service';
 import { Formula_MandoIDto, VariableFormulaDto } from './Formulas_MandoI.Dto';
 
@@ -18,5 +18,11 @@ async addVariable(
     @Body() variableDto: VariableFormulaDto
 ) {
     return await this.formulasMandoService.addVariable(id, variableDto);
+}
+
+@Get()
+async findAll(){
+    const formulas_encontradas = await this.formulasMandoService.findAll()
+    return formulas_encontradas
 }
 }
