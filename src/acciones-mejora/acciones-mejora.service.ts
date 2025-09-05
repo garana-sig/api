@@ -5,7 +5,6 @@ import * as ExcelJS from 'exceljs';
 import { IAccionesMejora } from './AccionesMejora.Model';
 import { AccionesMejoraDto } from './AccionesMejora.Dto';
 import { PlantillasService } from 'src/plantillas/plantillas.service';
-import * as sgMail from '@sendgrid/mail';
 import 'dotenv/config';
 import * as dotenv from 'dotenv';
 import * as nodemailer from 'nodemailer';

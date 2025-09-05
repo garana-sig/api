@@ -28,4 +28,6 @@ export class FormatosDto {
     url: string;  // ID de GridFS como URL
     peso: number;
   };
+  @IsOptional()
+  listadoMaestroId?: string;
 }

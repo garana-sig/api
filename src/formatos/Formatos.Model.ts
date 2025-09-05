@@ -13,6 +13,10 @@ export const FormatosSchema = new mongoose.Schema({
     url: String,  // ID de GridFS como URL
     peso: Number,
   },
+  listadoMaestroId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ListadoMaestro'
+  }
 });
 
 export interface IFormatos extends mongoose.Document {
@@ -28,4 +32,5 @@ export interface IFormatos extends mongoose.Document {
     url: string;
     peso: number;
   };
+  listadoMaestroId?: mongoose.Types.ObjectId;
 }
